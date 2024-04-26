@@ -2,10 +2,10 @@ extends CharacterBody2D
 
 @onready var sprite = $Sprite2D
 
-@export var terminal_v_velocity: float = 500.0
+@export var terminal_v_velocity: float = 750.0
 @export var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-@export var damping: float = 0.25
+@export var damping: float = 0.15
 @export var bounce_threshold: float = 75.0
 @export var max_jump_force: float = 600.0
 @export var h_jump_force: float = 150.0
