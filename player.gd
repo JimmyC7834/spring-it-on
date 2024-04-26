@@ -2,15 +2,15 @@ extends CharacterBody2D
 
 @onready var sprite = $Sprite2D
 
-@export var terminal_v_velocity: float = 50.0
-@export var gravity: float = 50.0
+@export var terminal_v_velocity: float = 500.0
+@export var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @export var damping: float = 0.25
-@export var bounce_threshold: float = 5.0
-@export var max_jump_force: float = 30.0
-@export var h_jump_force: float = 5.0
-@export var jump_force_acc: float = 30.0
-@export var speed: float = 500.0
+@export var bounce_threshold: float = 75.0
+@export var max_jump_force: float = 600.0
+@export var h_jump_force: float = 150.0
+@export var jump_force_acc: float = 600.0
+@export var speed: float = 250.0
 var dir: int = 0
 var jump_force: float = 0.0
 var bouncing: bool = false
@@ -25,6 +25,10 @@ func _physics_process(delta):
     move_and_slide()
 
 func state_floor(delta):
+    if not is_on_floor():
+        state = state_falling
+        return
+    
     if Input.is_action_just_pressed("DOWN"):
         velocity.x = 0    
         state = state_jump
@@ -50,8 +54,13 @@ func state_falling(delta):
         state = state_bouncing
         return
 
-    move_and_collide(velocity)
     sprite.rotation = velocity.angle()
+    var collision = move_and_collide(velocity * delta)
+    
+    if collision:
+        velocity = velocity.slide(collision.get_normal())
+
+    
     if is_on_floor():
         sprite.rotation = 0
         on_landed.emit()    
@@ -63,8 +72,8 @@ func state_bouncing(delta):
         state = state_falling
         return
     
-    var collision = move_and_collide(velocity)       
     sprite.rotation = velocity.angle()
+    var collision = move_and_collide(velocity * delta)       
     
     if collision:
         if abs(velocity.y) < bounce_threshold:
