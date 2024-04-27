@@ -100,5 +100,5 @@ func bounce(collision: KinematicCollision2D):
     if not collision: return
     velocity = velocity.bounce(collision.get_normal()) * (1 - damping)
     print("bounced: ", velocity, damping)
-    if abs(velocity.y) < bounce_threshold:
+    if velocity.length() < bounce_threshold:
         velocity.y = 0
