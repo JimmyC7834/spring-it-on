@@ -18,6 +18,10 @@ run/size/window_height_override=720
 run/size/window_width_override=960
 run/size/viewport_height=648
 
+[autoload]
+
+Audio="*res://audio.gd"
+
 [display]
 
 window/size/viewport_width=720
@@ -68,3 +72,4 @@ DEBUG_REFRESH={
 
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+viewport/hdr_2d=true

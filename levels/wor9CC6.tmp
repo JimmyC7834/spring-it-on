@@ -7286,7 +7286,6 @@ position = Vector2(736, 344)
 floor_stop_on_slope = false
 floor_max_angle = 0.174533
 floor_snap_length = 5.0
-sprite_deform_scale = Vector2(0.5, 1.5)
 
 [node name="TileMap" type="TileMap" parent="."]
 visible = false

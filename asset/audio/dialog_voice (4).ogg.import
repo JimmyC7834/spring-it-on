@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dgxs4isdi2rqe"
+path="res://.godot/imported/dialog_voice (4).ogg-bb58f3b69d4b9c4e81a22a95d1ec0393.oggvorbisstr"
+
+[deps]
+
+source_file="res://asset/audio/dialog_voice (4).ogg"
+dest_files=["res://.godot/imported/dialog_voice (4).ogg-bb58f3b69d4b9c4e81a22a95d1ec0393.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
