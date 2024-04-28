@@ -1,6 +1,14 @@
 extends CharacterBody2D
 
-@onready var sprite = $Sprite2D
+const TEX_SPRING_EYE_LEFT = preload("res://asset/spring/spring_eye_left.png")
+const TEX_SPRING_EYE_RIGHT = preload("res://asset/spring/spring_eye_right.png")
+const TEX_SPRING_EYE_UP = preload("res://asset/spring/spring_eye_up.png")
+
+const TEX_EYES = [TEX_SPRING_EYE_LEFT, TEX_SPRING_EYE_UP, TEX_SPRING_EYE_RIGHT]
+
+@onready var visual = $Visual
+@onready var sprite = $Visual/Sprite2D
+@onready var sprite_eye = $Visual/Eye
 
 @export var terminal_v_velocity: float = 750.0
 @export var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -13,11 +21,13 @@ extends CharacterBody2D
 @export var speed: float = 150.0
 var dir: int = 0
 var jump_force: float = 0.0
-var bouncing: bool = false
 var state: Callable = state_falling
 
 signal on_bounced
 signal on_landed
+
+func _process(delta):
+    sprite_eye.texture = TEX_EYES[dir + 1]    
 
 func _physics_process(delta):
     apply_gravity(delta)
@@ -43,12 +53,12 @@ func state_floor(delta):
     velocity.x = speed * axis
 
 func state_jump(delta):
-    sprite.scale.y = 0.5 - (0.25 * (jump_force / max_jump_force))
+    visual.scale.y = 1 - (.5 * (jump_force / max_jump_force)) 
     jump_force += jump_force_acc * delta
     jump_force = min(max_jump_force, jump_force)
     if Input.is_action_just_released("DOWN"):
         jump()
-        sprite.scale.y = .5
+        visual.scale.y = 1 
         state = state_falling
 
 func state_falling(delta):
@@ -62,9 +72,8 @@ func state_falling(delta):
     if collision:
         velocity = velocity.slide(collision.get_normal())
 
-    
     if is_on_floor():
-        sprite.rotation = 0
+        visual.rotation = 0
         on_landed.emit()    
         
         state = state_floor
@@ -79,14 +88,15 @@ func state_bouncing(delta):
     
     if collision:
         if abs(velocity.y) < bounce_threshold:
-            sprite.rotation = 0
+            visual.rotation = 0
             state = state_floor
             
         bounce(collision)
-        on_bounced.emit()
+        on_bounced.emit()  
 
 func align_sprite():
-    sprite.rotation = Vector2(abs(velocity.x), velocity.y).angle()    
+    var a = Vector2(abs(velocity.x), velocity.y).angle() * 0.5
+    visual.rotation = a if abs(velocity.angle_to(Vector2.UP)) > 0.1 and abs(velocity.angle_to(Vector2.DOWN)) > 0.1 else 0
 
 func apply_gravity(delta: float):
     velocity.y += gravity * delta

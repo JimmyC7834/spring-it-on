@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="SS2D_Material_Edge_Metadata" load_steps=7 format=3 uid="uid://dqngrwtk1ciyu"]
+
+[ext_resource type="Script" path="res://addons/rmsmartshape/materials/edge_material.gd" id="1_jxvrx"]
+[ext_resource type="Texture2D" uid="uid://c4muldappvdt1" path="res://asset/rock.png" id="2_atpfv"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/normal_range.gd" id="3_1lf3o"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/materials/edge_material_metadata.gd" id="4_yymjo"]
+
+[sub_resource type="Resource" id="Resource_653vt"]
+script = ExtResource("1_jxvrx")
+textures = Array[Texture2D]([ExtResource("2_atpfv")])
+textures_corner_outer = Array[Texture2D]([])
+textures_corner_inner = Array[Texture2D]([])
+textures_taper_left = Array[Texture2D]([])
+textures_taper_right = Array[Texture2D]([])
+randomize_texture = false
+use_corner_texture = false
+use_taper_texture = true
+fit_mode = 0
+
+[sub_resource type="Resource" id="Resource_lty3g"]
+script = ExtResource("3_1lf3o")
+begin = 0.0
+distance = 360.0
+edgeRendering = Vector2(0, 0)
+
+[resource]
+script = ExtResource("4_yymjo")
+edge_material = SubResource("Resource_653vt")
+normal_range = SubResource("Resource_lty3g")
+weld = true
+render = true
+z_index = 0
+z_as_relative = true
+offset = -1.5
