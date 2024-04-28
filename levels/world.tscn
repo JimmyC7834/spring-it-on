@@ -1,4 +1,4 @@
-[gd_scene load_steps=1025 format=3 uid="uid://cawidjx8giefa"]
+[gd_scene load_steps=1026 format=3 uid="uid://cawidjx8giefa"]
 
 [ext_resource type="PackedScene" uid="uid://uyv44tdbbc5l" path="res://player/player.tscn" id="1_21iw6"]
 [ext_resource type="TileSet" uid="uid://d1heqhpit3q0j" path="res://levels/tileset.tres" id="2_v8ega"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" path="res://addons/rmsmartshape/materials/shape_material.gd" id="11_xxky3"]
 [ext_resource type="Script" path="res://addons/rmsmartshape/shapes/shape_open.gd" id="14_qmu7s"]
 [ext_resource type="Resource" uid="uid://bona45di16n0y" path="res://asset/ss2d_mat/rock_mat.tres" id="16_hm32e"]
+[ext_resource type="FontFile" uid="uid://imo82ht3xktn" path="res://Kenney Pixel.ttf" id="17_pygqf"]
 
 [sub_resource type="Gradient" id="Gradient_0pwmo"]
 offsets = PackedFloat32Array(0, 0.464832, 1)
@@ -7282,14 +7283,13 @@ _material_overrides = {}
 [node name="World" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_21iw6")]
-position = Vector2(736, 344)
+position = Vector2(720, 344)
 floor_stop_on_slope = false
 floor_max_angle = 0.174533
 floor_snap_length = 5.0
 sprite_deform_scale = Vector2(0.5, 1.5)
 
 [node name="TileMap" type="TileMap" parent="."]
-visible = false
 texture_filter = 1
 scale = Vector2(4, 4)
 tile_set = ExtResource("2_v8ega")
@@ -7747,3 +7747,53 @@ texture_repeat = 2
 script = ExtResource("6_0sjmo")
 _points = SubResource("Resource_xdmjr")
 shape_material = ExtResource("16_hm32e")
+
+[node name="Text" type="Node" parent="."]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Text"]
+texture_filter = 1
+offset_left = 624.0
+offset_top = 256.0
+offset_right = 880.0
+offset_bottom = 296.0
+theme_override_fonts/normal_font = ExtResource("17_pygqf")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[wave amp=25
+.0 freq=5.0 connected=1]PRESS DOWN TO CHARGE[/wave]"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Text"]
+texture_filter = 1
+offset_left = 232.0
+offset_top = -472.0
+offset_right = 552.0
+offset_bottom = -432.0
+theme_override_fonts/normal_font = ExtResource("17_pygqf")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[wave amp=25
+.0 freq=5.0 connected=1]PRESS UP TO CHANGE DIRECTION[/wave]"
+
+[node name="RichTextLabel4" type="RichTextLabel" parent="Text"]
+texture_filter = 1
+offset_left = 736.0
+offset_top = -864.0
+offset_right = 1056.0
+offset_bottom = -824.0
+theme_override_fonts/normal_font = ExtResource("17_pygqf")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[wave amp=25
+.0 freq=5.0 connected=1]PRESS UP TO CHANGE DIRECTION[/wave]"
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="Text"]
+texture_filter = 1
+offset_left = 496.0
+offset_top = -1384.0
+offset_right = 816.0
+offset_bottom = -1344.0
+theme_override_fonts/normal_font = ExtResource("17_pygqf")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[wave amp=25
+.0 freq=5.0 connected=1]HOLD UP TO BOUNCE IN AIR[/wave]"
