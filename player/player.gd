@@ -21,7 +21,7 @@ const TEX_EYES = [TEX_SPRING_EYE_LEFT, TEX_SPRING_EYE_UP, TEX_SPRING_EYE_RIGHT]
 @export var gravity: float = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 @export var damping: float = 0.15
-@export var bounce_threshold: float = 65.0
+@export var bounce_threshold: float = 50.0
 @export var max_jump_force: float = 600.0
 @export var h_jump_force: float = 150.0
 @export var jump_force_acc: float = 600.0
@@ -29,6 +29,7 @@ const TEX_EYES = [TEX_SPRING_EYE_LEFT, TEX_SPRING_EYE_UP, TEX_SPRING_EYE_RIGHT]
 var dir: int = 0
 var jump_force: float = 0.0
 var state: Callable = state_falling
+var previous_collision
 
 # juice
 @export var sprite_deform_scale: Vector2 = Vector2.ONE
@@ -91,11 +92,16 @@ func state_falling(delta):
     
     if collision:
         velocity = velocity.slide(collision.get_normal())
+        if previous_collision != collision.get_collider_id():
+            previous_collision = collision.get_collider_id()
+            Audio.play_sfx(SFX_COLLISIONS.pick_random())
+    else:
+        previous_collision = null
 
     if is_on_floor():
         visual.rotation = 0
         sprite.scale = Vector2.ONE
-        Audio.play_sfx(SFX_COLLISIONS.pick_random())
+        #Audio.play_sfx(SFX_COLLISIONS.pick_random())
         start_hitstop(histop_floor)
         on_landed.emit()
         
@@ -111,9 +117,7 @@ func state_bouncing(delta):
     var collision = move_and_collide(velocity * delta)       
     
     if collision:
-        Audio.play_sfx(SFX_COLLISIONS.pick_random())
-        start_hitstop(histop_floor)
-        if abs(velocity.y) < bounce_threshold:
+        if velocity.length() < bounce_threshold:
             visual.rotation = 0
             sprite.scale = Vector2.ONE
             state = state_floor
@@ -138,6 +142,8 @@ func jump():
 
 func bounce(collision: KinematicCollision2D):
     if not collision: return
+    Audio.play_sfx(SFX_COLLISIONS.pick_random())
+    start_hitstop(histop_floor)
     velocity = velocity.bounce(collision.get_normal()) * (1 - damping)
     print("bounced: ", velocity, damping)
     if velocity.length() < bounce_threshold:

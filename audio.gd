@@ -1,5 +1,7 @@
 extends Node
 
+var camera: Camera2D
+
 func _ready():
     process_mode = Node.PROCESS_MODE_ALWAYS
 
@@ -16,7 +18,7 @@ func play_sfx(audio: AudioStream) -> AudioStreamPlayer2D:
     var instance: AudioStreamPlayer2D = AudioStreamPlayer2D.new()
     instance.stream = audio
     instance.finished.connect(free_player.bind(instance))
-    add_child(instance)
+    camera.add_child(instance)
 
     instance.play()
     return instance    

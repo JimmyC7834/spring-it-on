@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="SS2D_Material_Edge_Metadata" load_steps=10 format=3 uid="uid://ga157vmy06q2"]
+
+[ext_resource type="Script" path="res://addons/rmsmartshape/materials/edge_material.gd" id="1_v7o55"]
+[ext_resource type="Texture2D" uid="uid://7s2xykkj1jb8" path="res://asset/grass_edge.png" id="2_bnbpg"]
+[ext_resource type="Texture2D" uid="uid://ui7pxy0r6egt" path="res://asset/golden_grass_edge.png" id="2_rn1va"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/normal_range.gd" id="3_xacyh"]
+[ext_resource type="Script" path="res://addons/rmsmartshape/materials/edge_material_metadata.gd" id="4_ceefi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_383ku"]
+atlas = ExtResource("2_bnbpg")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q8tf1"]
+atlas = ExtResource("2_bnbpg")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="Resource" id="Resource_dve55"]
+script = ExtResource("1_v7o55")
+textures = Array[Texture2D]([ExtResource("2_rn1va")])
+textures_corner_outer = Array[Texture2D]([])
+textures_corner_inner = Array[Texture2D]([SubResource("AtlasTexture_383ku")])
+textures_taper_left = Array[Texture2D]([SubResource("AtlasTexture_q8tf1")])
+textures_taper_right = Array[Texture2D]([])
+randomize_texture = false
+use_corner_texture = false
+use_taper_texture = false
+fit_mode = 1
+
+[sub_resource type="Resource" id="Resource_6yqla"]
+script = ExtResource("3_xacyh")
+begin = 0.0
+distance = 360.0
+edgeRendering = Vector2(0, 0)
+
+[resource]
+script = ExtResource("4_ceefi")
+edge_material = SubResource("Resource_dve55")
+normal_range = SubResource("Resource_6yqla")
+weld = true
+render = true
+z_index = 1
+z_as_relative = true
+offset = -0.4

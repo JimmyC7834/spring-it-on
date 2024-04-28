@@ -9,6 +9,9 @@ extends Camera2D
 @export var modulate_gradient: Gradient
 var cloud_offset: Vector2 = Vector2.ZERO
 
+func _enter_tree():
+    Audio.camera = self
+
 func _process(delta):
     var pt = cam_points.get_children().reduce(
         func(n: Node2D, pt: Node2D):
